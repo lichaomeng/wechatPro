@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./src/lib/jq.js"></script>
+    <title>问答竞猜</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        .mainIndex{
+            width: 100vw;
+            height: 100vh;
+            background-image: url(./src/img/startbg.jpg);
+            background-size: 100% 100%;
+            overflow: hidden;
+        }
+        #musicBtb{
+            display: inline-block;
+            float: right;
+            margin: 12px 12px 0 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        #musicBtb img{
+            width: 100%;
+        }
+        .startContent{
+            width: 100%;
+        }
+        .startContent #gameTitle{
+            width: 80%;
+            margin: 10% 10% 0;
+        }
+        .startContent #gameMethodWrap{
+            height: 120px;
+        }
+        .startContent #gameMethod{
+            width: 30%;
+            display: inline-block;
+            animation: smallToBig 4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+        @keyframes smallToBig{
+            0% {
+                width: 30%;
+            }
+            50% {
+                width: 20%;
+            }
+            100% {
+                width: 30%;
+            }
+        }
+
+        .startContent #startBtn{
+            width: 50%;
+            margin: 0 25%;
+            animation: jumpAni 2s linear infinite;
+        }
+
+        @keyframes jumpAni {
+            0% {
+                margin: 0 25%;
+            }
+            /*15% {*/
+                /*margin: 2% 25% 0;*/
+            /*}*/
+            /*30% {*/
+                /*margin: 0 25% 0;*/
+            /*}*/
+            /*45% {*/
+                /*margin: 5% 25% 0;*/
+            /*}*/
+            /*60% {*/
+                /*margin: 10% 25% 0;*/
+            /*}*/
+            /*75% {*/
+                /*margin: 5% 25% 0;*/
+            /*}*/
+            /*90% {*/
+                /*margin: 0 25%;*/
+            /*}*/
+            25% {
+                margin: 5% 25% 0;
+            }
+            50% {
+                margin: 10% 25% 0;
+            }
+            75% {
+                margin: 5% 25% 0;
+            }
+            /*100% {*/
+                /*margin: 0 25%;*/
+            /*}*/
+        }
+
+    </style>
+</head>
+<body>
+    <div class="mainIndex">
+        <audio src="https://file.ih5.cn/v3/files/203964/20190513/caf98803.mp3"  id="bgMusic" autoplay="autoplay" loop="loop"></audio>
+        <span id="musicBtb">
+            <img src="./src/img/musicBtn.jpg" alt="">
+        </span>
+        <div class="startContent">
+            <div>
+                <img src="./src/img/gameTitle.png" alt="" id="gameTitle">
+            </div>
+            <div id="gameMethodWrap">
+                <img src="./src/img/gameMethod.png" alt=""  id="gameMethod">
+            </div>
+            <div>
+                <img src="./src/img/startBtn.png" alt=""  id="startBtn">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(function() {
+
+
+        <!--音乐按钮旋转-->
+        var $musicBtn = $("#musicBtb"), degree = 0, timer, isPlayMusic = true;
+        var audio = $("#bgMusic")[0];
+
+        var promise = audio.play();
+        if (promise !== undefined) {
+            promise.then(_ => {
+                // Autoplay started!
+            }).catch(error => {
+                // Autoplay was prevented.
+                // Show a "Play" button so that user can start playback.
+                isPlayMusic = false;
+                audio.pause();
+                console.log($("#musicBtb img")[0]);
+                $("#musicBtb img")[0].setAttribute("src","./src/img/closeMusicImg.jpg");
+                clearInterval(timer);
+            });
+        }
+
+        function rotate() {
+            $musicBtn.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
+            $musicBtn.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
+            timer = setTimeout(function() {
+                degree+=1.5; rotate();
+            },5);
+        }
+        rotate();
+
+        $musicBtn.click(function () {
+            if(isPlayMusic){
+                isPlayMusic = false;
+                audio.pause();
+                console.log($("#musicBtb img")[0]);
+                $("#musicBtb img")[0].setAttribute("src","./src/img/closeMusicImg.jpg");
+                clearInterval(timer);
+            }else{
+                isPlayMusic = true;
+                audio.play();
+                $("#musicBtb img")[0].setAttribute("src","./src/img/musicBtn.jpg");
+                rotate();
+            }
+        });
+    });
+
+
+</script>
+</html>
