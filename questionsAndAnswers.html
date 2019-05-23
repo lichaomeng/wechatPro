@@ -70,24 +70,6 @@
             0% {
                 margin: 0 25%;
             }
-            /*15% {*/
-                /*margin: 2% 25% 0;*/
-            /*}*/
-            /*30% {*/
-                /*margin: 0 25% 0;*/
-            /*}*/
-            /*45% {*/
-                /*margin: 5% 25% 0;*/
-            /*}*/
-            /*60% {*/
-                /*margin: 10% 25% 0;*/
-            /*}*/
-            /*75% {*/
-                /*margin: 5% 25% 0;*/
-            /*}*/
-            /*90% {*/
-                /*margin: 0 25%;*/
-            /*}*/
             25% {
                 margin: 5% 25% 0;
             }
@@ -97,16 +79,49 @@
             75% {
                 margin: 5% 25% 0;
             }
-            /*100% {*/
-                /*margin: 0 25%;*/
-            /*}*/
         }
 
+        #methodModal{
+            background: rgba(0,0,0,0.3);
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        #methodModal img{
+            width: 60%;
+            position: absolute;
+            margin:auto;
+            display: none;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .questionWrap{
+            text-align: center;
+            display: none;
+            margin-top: 25%;
+        }
     </style>
 </head>
 <body>
     <div class="mainIndex">
         <audio src="https://file.ih5.cn/v3/files/203964/20190513/caf98803.mp3"  id="bgMusic" autoplay="autoplay" loop="loop"></audio>
+
+        <!--单题答对-->
+        <audio src="https://file.ih5.cn/v3/files/203964/20190511/956943fa.mp3"  id="succeedMusic"></audio>
+        <!--单体答错-->
+        <audio src="https://file.ih5.cn/v3/files/203964/20190511/94a903aa.mp3"  id="failMusic"></audio>s
+        <!--全部答对-->
+        <audio src="https://file.ih5.cn/v3/files/203964/20190512/9ee0386d.mp3"  id="succeedResultMusic"></audio>
+        <!--全部打错-->
+        <audio src="https://file.ih5.cn/v3/files/203964/20190512/7e159024.mp3"  id="failResultMusic"></audio>
+
         <span id="musicBtb">
             <img src="./src/img/musicBtn.jpg" alt="">
         </span>
@@ -121,16 +136,43 @@
                 <img src="./src/img/startBtn.png" alt=""  id="startBtn">
             </div>
         </div>
+
+        <!--锦囊弹框-->
+        <div id="methodModal">
+            <img src="./src/img/method.png" alt="">
+        </div>
+
+        <!--开始答题-01  -->
+        <div class="questionWrap question01">
+            <img src="./src/img/question/1.png" alt="">
+            <img src="./src/img/question/q.png" alt="">
+            <img src="./src/img/question/a.png" alt="" ans=1 class="ansBtn">
+            <img src="./src/img/question/b.png" alt="" ans=2 class="ansBtn">
+            <img src="./src/img/question/c.png" alt="" ans=3 class="ansBtn">
+            <img src="./src/img/question/d.png" alt="" ans=4 class="ansBtn">
+        </div>
+
+        <!--开始答题-02  -->
+        <div class="questionWrap question02">
+            <img src="./src/img/question/1.png" alt="">
+            <img src="./src/img/question/q.png" alt="">
+            <img src="./src/img/question/a.png" alt="" ans=1 class="ansBtn">
+            <img src="./src/img/question/b.png" alt="" ans=2 class="ansBtn">
+            <img src="./src/img/question/c.png" alt="" ans=3 class="ansBtn">
+            <img src="./src/img/question/d.png" alt="" ans=4 class="ansBtn">
+        </div>
+
+
     </div>
 </body>
 <script>
-    $(function() {
-
-
         <!--音乐按钮旋转-->
-        var $musicBtn = $("#musicBtb"), degree = 0, timer, isPlayMusic = true;
-        var audio = $("#bgMusic")[0];
+        var $musicBtn = $("#musicBtb"), degree = 0, timer, isPlayMusic = true,isShowMethod = false;
 
+        var rightAnswer = [1,2,3,4,5];
+
+        //音乐按钮
+        var audio = $("#bgMusic")[0];
         var promise = audio.play();
         if (promise !== undefined) {
             promise.then(_ => {
@@ -140,12 +182,12 @@
                 // Show a "Play" button so that user can start playback.
                 isPlayMusic = false;
                 audio.pause();
-                console.log($("#musicBtb img")[0]);
                 $("#musicBtb img")[0].setAttribute("src","./src/img/closeMusicImg.jpg");
                 clearInterval(timer);
             });
         }
 
+        //音乐按钮旋转
         function rotate() {
             $musicBtn.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});
             $musicBtn.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});
@@ -155,6 +197,7 @@
         }
         rotate();
 
+        //点击音乐按钮
         $musicBtn.click(function () {
             if(isPlayMusic){
                 isPlayMusic = false;
@@ -169,8 +212,72 @@
                 rotate();
             }
         });
+
+
+    // 锦囊按钮
+    var methodBtn =  $("#gameMethod");
+    var methodModal =  $("#methodModal");
+    var methodModalImg =  $("#methodModal img");
+    methodBtn.click(function (item) {
+        methodModal.show();
+        methodModalImg.show();
+        methodModal.click(function () {
+            methodModal.hide();
+            methodModalImg.hide();
+        })
     });
 
+    //开始答题
+    var startBtn =  $("#startBtn");
+    var startContent =  $(".startContent");
+
+    startBtn.click(function () {
+        startContent.hide();
+        $(".question01").show();
+        $(".mainIndex").css({backgroundImage:"url(./src/img/answepMainBg.jpg)"});
+    });
+
+
+    var succeedMusic = $("#succeedMusic")[0];
+    var failMusic = $("#failMusic")[0];
+
+    //  第一道题目
+    var  answerBtn01 =  $(".question01 .ansBtn");
+    answerBtn01.click(function (item) {
+        var val = $(item.target).attr("ans");
+        if(val == rightAnswer[0]){
+            succeedMusic.play();
+        }else{
+            failMusic.play();
+        }
+        var  allAnsBtns = $(".question01 .ansBtn");
+        for(var i = 0;i < allAnsBtns.length;i++){
+            $(allAnsBtns[i]).css({"border":"2px solid red"});
+            $(allAnsBtns[rightAnswer[0]-1]).css({"border":"2px solid green"});
+            if(i+1>=allAnsBtns.length){
+                $(".question01").hide();
+                $(".question02").show();
+            }
+        }}
+        );
+
+        //  第二道题目
+        var  answerBtn02 =  $(".question02 .ansBtn");
+        answerBtn02.click(function (item) {
+            var val = $(item.target).attr("ans");
+            var  allAnsBtns = $(".question01 .ansBtn");
+            for(var i = 0;i < allAnsBtns.length;i++){
+                $(allAnsBtns[i]).css({"border":"2px solid red"});
+                $(allAnsBtns[rightAnswer[1]-1]).css({"border":"2px solid green"})
+            }
+            if(val == rightAnswer[1]){
+                succeedMusic.play();
+            }else{
+                failMusic.play();
+            }
+            $(".question02").hide();
+            $(".question03").show();
+        });
 
 </script>
 </html>
