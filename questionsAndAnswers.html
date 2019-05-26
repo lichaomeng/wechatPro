@@ -107,6 +107,94 @@
             display: none;
             margin-top: 25%;
         }
+        .questionWrap .questionNum{
+            width: 60%;
+        }
+        .questionWrap .questionDes{
+            width: 80%;
+            margin: 5% 0;
+        }
+        .questionWrap .ansBtn{
+            margin-bottom: 5%;
+            width: 56%;
+            border-radius: 10px;
+            box-shadow:0 0 5px rgba(0,0,0,0)
+        }
+        .questionWrap .breath{
+            animation: rightAnsbreath linear 500ms  4 alternate;
+        }
+        @-webkit-keyframes rightAnsbreath{
+            from{
+                box-shadow:0px 0px 5px rgba(0,0,0,0);
+            }
+            to{
+                box-shadow:0px 0px 5px #14F714;
+            }
+        }
+
+        /*挑战失败*/
+        .answerFailModal{
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("./src/img/challengeFail.png");
+            background-repeat:no-repeat;
+            background-size:100% auto;
+            overflow: hidden;
+        }
+        .answerFailModal span{
+            display: block;
+            width: 160px;
+            height: 36px;
+            margin: 112% auto 0;
+            background: #3a4fb0;
+            border-radius: 8px;
+            line-height: 36px;
+            text-align: center;
+        }
+        /*提交用户信息*/
+        .submitInfo{
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("./src/img/submitInfo.png");
+            background-repeat:no-repeat;
+            background-size:100% auto;
+            overflow: hidden;
+        }
+        .submitInfo input{
+            display: block;
+            outline: none;
+            border: none;
+            background: top;
+            text-align: center;
+            margin: 0 auto;
+            height: 36px;
+        }
+        .submitInfo input:nth-of-type(1){
+            margin-top: 68%;
+        }
+        .submitInfo input:nth-of-type(2){
+            margin-top: 9.5%;
+        }
+        .submitInfo span{
+            display: block;
+            width: 120px;
+            height: 36px;
+            margin: 11% auto 0;
+            background: #3a4fb0;
+            border-radius: 8px;
+            line-height: 36px;
+            text-align: center;
+        }
+        .submitSucceed{
+            display: none;
+            width: 100vw;
+            height: 100vh;
+        }
+        .submitSucceed img{
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +204,7 @@
         <!--单题答对-->
         <audio src="https://file.ih5.cn/v3/files/203964/20190511/956943fa.mp3"  id="succeedMusic"></audio>
         <!--单体答错-->
-        <audio src="https://file.ih5.cn/v3/files/203964/20190511/94a903aa.mp3"  id="failMusic"></audio>s
+        <audio src="https://file.ih5.cn/v3/files/203964/20190511/94a903aa.mp3"  id="failMusic"></audio>
         <!--全部答对-->
         <audio src="https://file.ih5.cn/v3/files/203964/20190512/9ee0386d.mp3"  id="succeedResultMusic"></audio>
         <!--全部打错-->
@@ -125,6 +213,7 @@
         <span id="musicBtb">
             <img src="./src/img/musicBtn.jpg" alt="">
         </span>
+
         <div class="startContent">
             <div>
                 <img src="./src/img/gameTitle.png" alt="" id="gameTitle">
@@ -144,8 +233,8 @@
 
         <!--开始答题-01  -->
         <div class="questionWrap question01">
-            <img src="./src/img/question/1.png" alt="">
-            <img src="./src/img/question/q.png" alt="">
+            <img src="./src/img/question/1.png" alt="" class="questionNum">
+            <img src="./src/img/question/q.png" alt="" class="questionDes">
             <img src="./src/img/question/a.png" alt="" ans=1 class="ansBtn">
             <img src="./src/img/question/b.png" alt="" ans=2 class="ansBtn">
             <img src="./src/img/question/c.png" alt="" ans=3 class="ansBtn">
@@ -154,23 +243,72 @@
 
         <!--开始答题-02  -->
         <div class="questionWrap question02">
-            <img src="./src/img/question/1.png" alt="">
-            <img src="./src/img/question/q.png" alt="">
+            <img src="./src/img/question/q2.png" alt="" class="questionNum">
+            <img src="./src/img/question/q.png" alt="" class="questionDes">
             <img src="./src/img/question/a.png" alt="" ans=1 class="ansBtn">
             <img src="./src/img/question/b.png" alt="" ans=2 class="ansBtn">
             <img src="./src/img/question/c.png" alt="" ans=3 class="ansBtn">
             <img src="./src/img/question/d.png" alt="" ans=4 class="ansBtn">
         </div>
 
+        <!--开始答题-03  -->
+        <div class="questionWrap question03">
+            <img src="./src/img/question/q3.png" alt="" class="questionNum">
+            <img src="./src/img/question/q.png" alt="" class="questionDes">
+            <img src="./src/img/question/a.png" alt="" ans=1 class="ansBtn">
+            <img src="./src/img/question/b.png" alt="" ans=2 class="ansBtn">
+            <img src="./src/img/question/c.png" alt="" ans=3 class="ansBtn">
+            <img src="./src/img/question/d.png" alt="" ans=4 class="ansBtn">
+        </div>
+
+        <!--开始答题-04  -->
+        <div class="questionWrap question04">
+            <img src="./src/img/question/q4.png" alt="" class="questionNum">
+            <img src="./src/img/question/q.png" alt="" class="questionDes">
+            <img src="./src/img/question/a.png" alt="" ans=1 class="ansBtn">
+            <img src="./src/img/question/b.png" alt="" ans=2 class="ansBtn">
+            <img src="./src/img/question/c.png" alt="" ans=3 class="ansBtn">
+            <img src="./src/img/question/d.png" alt="" ans=4 class="ansBtn">
+        </div>
+
+        <!--开始答题-05  -->
+        <div class="questionWrap question05">
+            <img src="./src/img/question/q5.png" alt="" class="questionNum">
+            <img src="./src/img/question/q.png" alt="" class="questionDes">
+            <img src="./src/img/question/a.png" alt="" ans=1 class="ansBtn">
+            <img src="./src/img/question/b.png" alt="" ans=2 class="ansBtn">
+            <img src="./src/img/question/c.png" alt="" ans=3 class="ansBtn">
+            <img src="./src/img/question/d.png" alt="" ans=4 class="ansBtn">
+        </div>
+
+        <!--回答错误-->
+            <div class="answerFailModal">
+                <span>
+                    在玩一次
+                </span>
+            </div>
+
+        <!--回答正确-->
+        <div class="submitInfo">
+            <input type="text" placeholder="请输入姓名">
+            <input type="text" placeholder="请输入电话">
+            <span>
+                提交
+            </span>
+        </div>
+
+        <!--提交成功-->
+        <div class="submitSucceed">
+            <img src="./src/img/submitSucceed.png" alt="">
+        </div>
 
     </div>
 </body>
 <script>
         <!--音乐按钮旋转-->
         var $musicBtn = $("#musicBtb"), degree = 0, timer, isPlayMusic = true,isShowMethod = false;
-
-        var rightAnswer = [1,2,3,4,5];
-
+        var rightAnswer = [1,2,3,4,1];
+        var userAnswer = [];
         //音乐按钮
         var audio = $("#bgMusic")[0];
         var promise = audio.play();
@@ -244,40 +382,140 @@
     //  第一道题目
     var  answerBtn01 =  $(".question01 .ansBtn");
     answerBtn01.click(function (item) {
+        answerBtn01.css({"box-shadow":"0px 0px 5px #D91E1E"});
+        $(answerBtn01[rightAnswer[0]-1]).addClass("breath");
+        $(answerBtn01[rightAnswer[0]-1]).css({"box-shadow":"0px 0px 5px #14F714"});
         var val = $(item.target).attr("ans");
+        userAnswer.push(parseInt(val));
         if(val == rightAnswer[0]){
             succeedMusic.play();
         }else{
             failMusic.play();
         }
-        var  allAnsBtns = $(".question01 .ansBtn");
-        for(var i = 0;i < allAnsBtns.length;i++){
-            $(allAnsBtns[i]).css({"border":"2px solid red"});
-            $(allAnsBtns[rightAnswer[0]-1]).css({"border":"2px solid green"});
-            if(i+1>=allAnsBtns.length){
-                $(".question01").hide();
-                $(".question02").show();
-            }
-        }}
-        );
+        setTimeout(function () {
+            $(".question01").hide();
+            $(".question02").show();
+        },4000)
+    });
 
         //  第二道题目
         var  answerBtn02 =  $(".question02 .ansBtn");
         answerBtn02.click(function (item) {
+            answerBtn02.css({"box-shadow":"0px 0px 5px #D91E1E"});
+            $(answerBtn02[rightAnswer[1]-1]).addClass("breath");
+            $(answerBtn02[rightAnswer[1]-1]).css({"box-shadow":"0px 0px 5px #14F714"});
             var val = $(item.target).attr("ans");
-            var  allAnsBtns = $(".question01 .ansBtn");
-            for(var i = 0;i < allAnsBtns.length;i++){
-                $(allAnsBtns[i]).css({"border":"2px solid red"});
-                $(allAnsBtns[rightAnswer[1]-1]).css({"border":"2px solid green"})
-            }
+            userAnswer.push(parseInt(val));
             if(val == rightAnswer[1]){
                 succeedMusic.play();
             }else{
                 failMusic.play();
             }
-            $(".question02").hide();
-            $(".question03").show();
+            setTimeout(function () {
+                $(".question02").hide();
+                $(".question03").show();
+            },4000)
         });
 
+        //  第三道题目
+        var  answerBtn03 =  $(".question03 .ansBtn");
+        answerBtn03.click(function (item) {
+            answerBtn03.css({"box-shadow":"0px 0px 5px #D91E1E"});
+            $(answerBtn03[rightAnswer[2]-1]).addClass("breath");
+            $(answerBtn03[rightAnswer[2]-1]).css({"box-shadow":"0px 0px 5px #14F714"});
+            var val = $(item.target).attr("ans");
+            userAnswer.push(parseInt(val));
+            if(val == rightAnswer[2]){
+                succeedMusic.play();
+            }else{
+                failMusic.play();
+            }
+            setTimeout(function () {
+                $(".question03").hide();
+                $(".question04").show();
+            },4000)
+        });
+
+        //  第四道题目
+        var  answerBtn04 =  $(".question04 .ansBtn");
+        answerBtn04.click(function (item) {
+            answerBtn04.css({"box-shadow":"0px 0px 5px #D91E1E"});
+            $(answerBtn04[rightAnswer[3]-1]).addClass("breath");
+            $(answerBtn04[rightAnswer[3]-1]).css({"box-shadow":"0px 0px 5px #14F714"});
+            var val = $(item.target).attr("ans");
+            userAnswer.push(parseInt(val));
+            if(val == rightAnswer[3]){
+                succeedMusic.play();
+            }else{
+                failMusic.play();
+            }
+            setTimeout(function () {
+                $(".question04").hide();
+                $(".question05").show();
+            },4000)
+        });
+
+        //  第五道题目
+        var  answerBtn05 =  $(".question05 .ansBtn");
+        answerBtn05.click(function (item) {
+            answerBtn05.css({"box-shadow":"0px 0px 5px #D91E1E"});
+            $(answerBtn05[rightAnswer[4]-1]).addClass("breath");
+            $(answerBtn05[rightAnswer[4]-1]).css({"box-shadow":"0px 0px 5px #14F714"});
+            var val = $(item.target).attr("ans");
+            userAnswer.push(parseInt(val));
+            if(val == rightAnswer[4]){
+                succeedMusic.play();
+            }else{
+                failMusic.play();
+            }
+            setTimeout(function () {
+                $(".question05").hide();
+                var  isAllRight = true;
+                for(var i = 0;i<rightAnswer.length;i++){
+                    if(userAnswer[i]!==rightAnswer[i]){
+                        isAllRight=false;
+                    }
+                }
+               if(isAllRight){
+                   answerSucceed()
+               }else{
+                   answerFail()
+               }
+            },4000)
+        });
+
+        //回答错误
+        function answerFail(){
+            audio.pause();
+            $("#failResultMusic")[0].play();
+            $(".answerFailModal").show();
+            $(".answerFailModal span").click(function () {
+                window.location.reload();
+            });
+        };
+        //回答成功
+        function answerSucceed() {
+            audio.pause();
+            $("#succeedResultMusic")[0].play();
+            $(".submitInfo").show();
+            $(".submitInfo span").click(function () {
+               var  name = $(".submitInfo input:nth-of-type(1)").val();
+               var phone = $(".submitInfo input:nth-of-type(2)").val();
+               alert("用户名:"+name+",电话:"+phone);
+                $(".submitInfo").hide();
+               $(".submitSucceed").show();
+            });
+        };
+
+        function postData(prams={}){
+            $.ajax({
+                url:prams.url,
+                method:"post",
+                data:JSON.stringify(prams.data),
+                success:prams.success(resp),
+                fail:prams.fail(erro)
+            });
+        }
+    //
 </script>
 </html>
